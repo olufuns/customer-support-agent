@@ -4,20 +4,33 @@ from app.tools import lookup_order, refund_policy
 
 create_table()
 
-st.title("Customer Support Agent")
+st.set_page_config(
+    page_title="Customer Support Agent",
+    page_icon="🤖"
+)
+
+st.title("🤖 Customer Support Agent")
+st.caption("AI-powered customer support assistant with memory and order lookup tools.")
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-message = st.text_input("Ask a question")
+for msg in st.session_state.messages:
+    with st.chat_message(msg["role"]):
+        st.write(msg["content"])
 
-if st.button("Send"):
+user_input = st.chat_input("Ask a question...")
+
+if user_input:
 
     st.session_state.messages.append(
-        {"role": "user", "content": message}
+        {"role": "user", "content": user_input}
     )
 
-    user_message = message.lower()
+    with st.chat_message("user"):
+        st.write(user_input)
+
+    user_message = user_input.lower()
 
     if "my name is" in user_message:
         name = user_message.replace("my name is", "").strip()
@@ -51,7 +64,7 @@ if st.button("Send"):
         response = "Please provide your order number."
 
     elif "refund" in user_message:
-        response = "I can help with your refund request."
+        response = "I can help with your refund request. Please provide your order number."
 
     else:
         response = "How can I assist you today?"
@@ -60,8 +73,5 @@ if st.button("Send"):
         {"role": "assistant", "content": response}
     )
 
-for msg in st.session_state.messages:
-    if msg["role"] == "user":
-        st.write(f"👤 You: {msg['content']}")
-    else:
-        st.write(f"🤖 Agent: {msg['content']}")
+    with st.chat_message("assistant"):
+        st.write(response)
