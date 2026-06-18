@@ -1,53 +1,99 @@
-# 🤖 Customer Support AI Agent
+# 🤖 AI Customer Support Agent with Amazon Bedrock
 
 ## Overview
 
-Customer Support AI Agent is a Python and Streamlit-based application that simulates a customer support assistant. The agent can answer customer enquiries, remember user information, retrieve order statuses, and provide refund policy information through an interactive chat interface.
+This project is an AI-powered Customer Support Agent built using Python, Streamlit, SQLite, and Amazon Bedrock. The application provides a conversational interface that can remember customer information, retrieve order statuses, answer refund-related questions, and generate intelligent responses using Amazon Nova Lite through Amazon Bedrock.
 
-This project demonstrates fundamental AI Agent concepts including memory management, tool integration, persistent storage, and conversational interfaces.
+The project demonstrates key AI Agent concepts including memory management, tool calling, persistent storage, cloud AI integration, and conversational user interfaces.
 
 ---
 
 ## Features
 
-* Interactive ChatGPT-style interface using Streamlit
-* Persistent memory using SQLite
-* Customer name recognition and recall
-* Order lookup tool
-* Refund policy tool
-* Session-based conversation history
-* Modular Python architecture
-* GitHub-ready project structure
+### Conversational AI
+
+* ChatGPT-style chat interface
+* Interactive customer support experience
+* AI-generated responses using Amazon Bedrock
+
+### Persistent Memory
+
+* Stores customer information in SQLite
+* Remembers customer names across application restarts
+* Retrieves stored information during future conversations
+
+### Customer Support Tools
+
+* Order status lookup
+* Refund policy lookup
+* Customer information retrieval
+
+### Amazon Bedrock Integration
+
+* Connected to Amazon Bedrock Runtime
+* Uses Amazon Nova Lite foundation model
+* Includes fallback handling when Bedrock quotas are exceeded
 
 ---
 
-## Project Structure
+## Architecture
 
 ```text
-customer-support-agent/
-│
-├── app/
-│   ├── database.py
-│   ├── tools.py
-│   └── __init__.py
-│
-├── ui/
-│   └── streamlit_app.py
-│
-├── customer_support.db
-│
-├── README.md
-├── requirements.txt
-└── .gitignore
+User
+ │
+ ▼
+Streamlit Chat Interface
+ │
+ ▼
+Customer Support Agent
+ ├── SQLite Memory
+ ├── Order Lookup Tool
+ ├── Refund Policy Tool
+ └── Amazon Bedrock (Nova Lite)
 ```
+
+---
 
 ## Technologies Used
 
 * Python
 * Streamlit
 * SQLite
+* Amazon Bedrock
+* Amazon Nova Lite
+* Boto3
 * Git
 * GitHub
+
+---
+
+## Project Structure
+
+customer-support-agent/
+
+├── app/
+
+│   ├── bedrock_client.py
+
+│   ├── database.py
+
+│   ├── tools.py
+
+│   └── **init**.py
+
+│
+
+├── ui/
+
+│   └── streamlit_app.py
+
+│
+
+├── requirements.txt
+
+├── README.md
+
+└── .gitignore
 
 ---
 
@@ -56,7 +102,7 @@ customer-support-agent/
 Clone the repository:
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/olufuns/customer-support-agent.git
 cd customer-support-agent
 ```
 
@@ -79,6 +125,25 @@ Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
+
+---
+
+## AWS Configuration
+
+Configure AWS credentials:
+
+```bash
+aws configure
+```
+
+Use:
+
+```text
+Region: us-west-2
+Output: json
+```
+
+Enable Amazon Nova Lite access in Amazon Bedrock.
 
 ---
 
@@ -132,27 +197,27 @@ Your order is out for delivery and should arrive today.
 
 ## Skills Demonstrated
 
-* Python Programming
 * AI Agent Development
-* Streamlit Web Applications
-* SQLite Database Integration
-* State Management
+* Amazon Bedrock Integration
+* Foundation Model Usage
+* Python Programming
+* Streamlit Application Development
+* SQLite Database Management
 * Tool Calling Architecture
-* Software Development Best Practices
-* Version Control with Git
+* Memory Systems
+* Cloud AI Services
+* Git and GitHub
 
 ---
 
 ## Future Enhancements
 
-* Amazon Bedrock Integration
-* OpenAI Integration
 * Retrieval-Augmented Generation (RAG)
-* PostgreSQL Database
-* User Authentication
-* Customer Knowledge Base
-* Cloud Deployment
+* Knowledge Base Integration
+* Customer Authentication
+* PostgreSQL Migration
 * Multi-Agent Architecture
+* Deployment on AWS
 
 ---
 
@@ -161,3 +226,4 @@ Your order is out for delivery and should arrive today.
 Olufunso Ojo
 
 AI Engineering and Data Science Portfolio Project
+
