@@ -1,16 +1,18 @@
 import streamlit as st
+
 from app.database import create_table, save_memory, get_memory
 from app.tools import lookup_order, refund_policy
-
-create_table()
+from app.bedrock_client import ask_bedrock
 
 st.set_page_config(
     page_title="Customer Support Agent",
     page_icon="🤖"
 )
 
+create_table()
+
 st.title("🤖 Customer Support Agent")
-st.caption("AI-powered customer support assistant with memory and order lookup tools.")
+st.caption("AI-powered customer support assistant with memory, order lookup tools, and Amazon Bedrock.")
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -67,7 +69,20 @@ if user_input:
         response = "I can help with your refund request. Please provide your order number."
 
     else:
-        response = "How can I assist you today?"
+        try:
+            bedrock_response = ask_bedrock(user_input)
+
+            if "Too many tokens per day" in bedrock_response:
+                response = (
+                    "Amazon Bedrock is currently unavailable because the daily token quota "
+                    "has been reached. The agent can still help with customer memory, "
+                    "order tracking, and refund enquiries."
+                )
+            else:
+                response = bedrock_response
+
+        except Exception as e:
+            response = f"Bedrock connection error: {str(e)}"
 
     st.session_state.messages.append(
         {"role": "assistant", "content": response}
